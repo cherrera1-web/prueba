@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+<h:head>
+    <title>Consulta de cálculos</title>
+</h:head>
+    <h:outputStylesheet name="consulta.css"/>
+    
+<h:body>
+    <p:commandButton value="Ir a registro" action="registro?faces-redirect=true"/>
+    <div id="marco-principal">
+        <h1>CONSULTAR</h1>
+
+        <h:form>
+            
+            <div class="fila">
+                <p:outputLabel>Usuario</p:outputLabel>
+                <p:inputText id="usuario-input" value="#{consultaBean.usuario}"/>
+            </div>
+            
+            
+            <div class="fila">
+                <p:outputLabel>Respuesta mínima</p:outputLabel>
+                <p:inputText id="minimo-input" value="#{consultaBean.minimo}"/>
+            </div>    
+            
+             <div class="fila">
+                <p:outputLabel>Respuesta máxima</p:outputLabel>
+                <p:inputText id="maximo-input" value="#{consultaBean.maximo}"/>
+            </div>  
+               
+            <br/>
+            <p:commandButton value="consultar"
+                             id="boton-consultar"
+                              actionListener="#{consultaBean.consultar()}"
+                              update="usuario-input  minimo-input maximo-input registros-tabla">
+            </p:commandButton>
+           
+            <br/>
+            <br/>
+            <p:dataTable 
+                id="registros-tabla"
+                var="registro"
+                value="#{consultaBean.registros}"
+                resizableColumns="true"
+            >
+                <p:column headerText="Usuario">
+                    <h:outputLabel value="#{registro.usuario.nombre}"/>
+                </p:column>
+                
+                <p:column headerText="Respuesta">
+                    <h:outputLabel value="#{registro.resultado}"/>
+                </p:column>
+                
+                <p:column headerText="Fecha de Ejecución">
+                    <h:outputLabel value="#{registro.fecha}"/>
+                </p:column>
+                 
+            </p:dataTable>
+            
+            <br/>
+        </h:form>
+    </div>
+</h:body>
+</html>
